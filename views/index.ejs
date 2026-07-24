@@ -3,78 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmetic Shop</title>
+    <title>VelvetAura - Elegance in Every Detail</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
     <%- include("partials/navbar") %>
 
-    <!-- Hero Section -->
+    <!-- Hero Banner Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Beauty That Makes You Shine ✨</h1>
-            <p>Explore the latest Bangles & Cosmetics Collection at the best prices.</p>
+            <h1>Welcome to VelvetAura</h1>
+            <p>Elegance in Every Detail</p>
             <a href="#products" class="btn">Shop Now</a>
         </div>
     </section>
 
     <!-- Categories Section -->
     <section class="categories">
-        <h2>Shop by Category</h2>
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="category-container">
 
-        <div class="category-container">
+                <!-- Bangles Card - Clickable banaya -->
+                <a href="/products?category=Bangles" class="card">
+                    <img src="/images/bangles.jpg" alt="Bangles">
+                    <h3>Bangles</h3>
+                </a>
 
-            <div class="card">
-                <img src="/images/bangles.jpg" alt="Bangles">
-                <h3>Bangles</h3>
+                <!-- Cosmetics Card - Clickable banaya -->
+                <a href="/products?category=Cosmetics" class="card">
+                    <img src="/images/cosmetic.jpg" alt="Cosmetics">
+                    <h3>Cosmetics</h3>
+                </a>
+                <!-- Perfume Card - Naya add kiya -->
+<a href="/products?category=Perfume" class="card">
+    <img src="/images/perfume.jpg" alt="Perfume">
+    <h3>Perfume</h3>
+</a>
+
             </div>
-
-            <div class="card">
-                <img src="/images/cosmetic.jpg" alt="Cosmetics">
-                <h3>Cosmetics</h3>
-            </div>
-
         </div>
     </section>
 
     <!-- Featured Products Section -->
     <section class="featured" id="products">
-
-        <h2>Featured Products</h2>
-
-        <div class="product-grid">
-
-            <% products.forEach(product => { %>
-
-                <div class="product-card">
-
-                    <img src="<%= product.image %>" alt="<%= product.name %>">
-
-                    <h3><%= product.name %></h3>
-
-                    <p class="price">₹<%= product.price %></p>
-
-                    <form action="/add-to-cart" method="POST">
-
-                        <input type="hidden" name="name" value="<%= product.name %>">
-
-                        <input type="hidden" name="price" value="<%= product.price %>">
-
-                        <input type="hidden" name="image" value="<%= product.image %>">
-
-                        <button type="submit" class="cart-btn">
-                            Add to Cart
-                        </button>
-
-                    </form>
-
-                </div>
-
-            <% }) %>
-
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                        <h3><%= product.name %></h3>
+                        <p>₹<%= product.price %></p>
+                        <button class="btn">Shop Now</button>
+                    </div>
+                <% }) %>
+            </div>
         </div>
+    </section>
 
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>About VelvetAura</h2>
+            <p>We bring you the finest bangles and cosmetics to make you shine every day.</p>
+        </div>
     </section>
 
     <%- include("partials/footer") %>

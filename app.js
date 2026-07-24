@@ -48,6 +48,7 @@ app.get("/cart", (req, res) => {
 // Add to Cart Route
 app.post("/add-to-cart", (req, res) => {
   const product = {
+    id: req.body.id,  // naya add kiya
     name: req.body.name,
     price: req.body.price,
     image: req.body.image
@@ -57,24 +58,24 @@ app.post("/add-to-cart", (req, res) => {
   res.redirect("/cart");
 });
 
-// Bangles Page
-app.get("/bangles", (req, res) => {
-    const bangles = [
-        {name: "Designer Bangles", price: 299, image: "/images/product1.jpg"},
-        {name: "Glass Bangles", price: 199, image: "/images/product1.jpg"},
-        {name: "Kundan Bangles", price: 499, image: "/images/product1.jpg"}
-    ];
-    res.render("products", {title: "Bangles Collection", products: bangles, cart: req.session.cart || []});
+// Bangles Page - DB se data
+app.get("/bangles", async (req, res) => {
+    try {
+        const products = await Product.find({ category: "Bangles" });
+        res.render("products", {title: "Bangles Collection", products, cart: req.session.cart || []});
+    } catch (err) {
+        res.send(err.message);
+    }
 });
 
-// Cosmetics Page
-app.get("/cosmetics", (req, res) => {
-    const cosmetics = [
-        {name: "Matte Lipstick", price: 499, image: "/images/product2.jpg"},
-        {name: "Luxury Perfume", price: 899, image: "/images/product3.jpg"},
-        {name: "Foundation", price: 699, image: "/images/product2.jpg"}
-    ];
-    res.render("products", {title: "Cosmetics Collection", products: cosmetics, cart: req.session.cart || []});
+// Cosmetics Page - DB se data
+app.get("/cosmetics", async (req, res) => {
+    try {
+        const products = await Product.find({ category: "Cosmetics" });
+        res.render("products", {title: "Cosmetics Collection", products, cart: req.session.cart || []});
+    } catch (err) {
+        res.send(err.message);
+    }
 });
 
 // About Page
@@ -85,6 +86,44 @@ app.get("/about", (req, res) => {
 // Contact Page
 app.get("/contact", (req, res) => {
     res.render("contact", {cart: req.session.cart || []});
+});
+
+// Product Details Page
+app.get("/product/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.render("product-details", {product, cart: req.session.cart || []});
+  } catch (err) {
+    res.send("Product not found");
+  }
+});
+
+// Cart se item remove / qty update
+app.post("/update-cart", (req, res) => {
+  const {name, action} = req.body;
+  let cart = req.session.cart || [];
+  
+  if(action === "remove"){
+    cart = cart.filter(item => item.name !== name);
+  }
+  req.session.cart = cart;
+  res.redirect("/cart");
+});
+
+// Category wise products page
+app.get("/products", async (req, res) => {
+  try {
+    const category = req.query.category; // URL se Bangles ya Cosmetics lega
+    const products = await Product.find({ category: category });
+    
+    res.render("products", { 
+      products: products,
+      title: category + " Products"  // ye products.ejs ko chahiye
+    });
+  } catch (err) {
+    console.log(err);
+    res.send("Error");
+  }
 });
 
 app.listen(PORT, () => {

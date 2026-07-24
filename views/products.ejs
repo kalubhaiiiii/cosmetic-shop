@@ -6,21 +6,37 @@
 </head>
 <body>
     <%- include("partials/navbar") %>
+    
     <h2 style="text-align:center; padding:20px;"><%= title %></h2>
-    <div class="product-grid">
+    
+    <div class="product-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; padding:20px;">
         <% products.forEach(product => { %>
-            <div class="product-card">
-                <img src="<%= product.image %>" alt="<%= product.name %>">
+            <div class="product-card" style="border:1px solid #ddd; border-radius:10px; padding:15px; text-align:center;">
+                <img src="<%= product.image %>" alt="<%= product.name %>" style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
                 <h3><%= product.name %></h3>
-                <p class="price">₹<%= product.price %></p>
-                <form action="/add-to-cart" method="POST">
-                  <input type="hidden" name="name" value="<%= product.name %>">
-                  <input type="hidden" name="price" value="<%= product.price %>">
-                  <input type="hidden" name="image" value="<%= product.image %>">
-                  <button type="submit" class="cart-btn">Add to Cart</button>
-                </form>
+                <p class="price" style="font-weight:bold; font-size:18px;">₹<%= product.price %></p>
+                
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    <!-- View Details Button - Naya add kiya -->
+                    <a href="/product/<%= product._id %>" class="btn" style="background:#333; color:#fff; padding:8px 12px; border-radius:5px; text-decoration:none;">
+                        View Details
+                    </a>
+                    
+                    <!-- Add to Cart Form -->
+                    <form action="/add-to-cart" method="POST">
+                        <input type="hidden" name="id" value="<%= product._id %>">
+                        <input type="hidden" name="name" value="<%= product.name %>">
+                        <input type="hidden" name="price" value="<%= product.price %>">
+                        <input type="hidden" name="image" value="<%= product.image %>">
+                        <button type="submit" class="cart-btn" style="background:#ff6b6b; color:#fff; padding:8px 12px; border:none; border-radius:5px; cursor:pointer;">
+                            Add to Cart
+                        </button>
+                    </form>
+                </div>
             </div>
         <% }) %>
     </div>
+
+    <%- include("partials/footer") %>
 </body>
 </html>

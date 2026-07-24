@@ -1,12 +1,15 @@
 <nav class="navbar">
     <div class="logo">
-        <a href="/" style="text-decoration: none; color: #e91e63;">💄 Cosmetic Shop</a>
+        <a href="/" style="text-decoration: none; color: #e91e63; font-size: 24px; font-weight: bold;">
+            VelvetAura
+        </a>
     </div>
 
     <ul class="menu">
         <li><a href="/">Home</a></li>
-        <li><a href="/bangles">Bangles</a></li>
-        <li><a href="/cosmetics">Cosmetics</a></li>
+        <li><a href="/products?category=Bangles">Bangles</a></li>
+        <li><a href="/products?category=Cosmetics">Cosmetics</a></li>
+        <li><a href="/products?category=Perfume">Perfume</a></li> <!-- Naya add kiya -->
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="/cart">Cart (<%= typeof cart !== 'undefined' ? cart.length : 0 %>)</a></li>
