@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Cosmetic Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include("partials/navbar") %>
+
+    <section class="cart-section" style="padding: 40px; text-align: center;">
+        <h1>Your Shopping Cart 🛒</h1>
+
+        <% if(cart.length === 0) { %>
+            <h2>Cart is empty 😢</h2>
+            <a href="/" class="btn">Continue Shopping</a>
+        <% } else { %>
+            <div class="cart-container">
+                <% cart.forEach(item => { %>
+                    <div class="cart-item" style="border: 1px solid #ddd; padding: 15px; margin: 15px auto; max-width: 400px; border-radius: 8px;">
+                        <img src="<%= item.image %>" alt="<%= item.name %>" style="width: 100px;">
+                        <h3><%= item.name %></h3>
+                        <p>Price: ₹<%= item.price %></p>
+                    </div>
+                <% }) %>
+            </div>
+            <h2>Total Items: <%= cart.length %></h2>
+            <a href="/" class="btn">Continue Shopping</a>
+        <% } %>
+    </section>
+
+</body>
+</html>
