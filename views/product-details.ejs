@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.name %> - VelvetAura</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    body { background: #fff; color: #282c3f; }
+    
+    nav { background: #fff; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e9e9eb; position: sticky; top: 0; z-index: 10; }
+    .logo { font-size: 24px; font-weight: 700; color: #ff3f6c; letter-spacing: 1px; }
+    nav a { color: #282c3f; text-decoration: none; margin: 0 12px; font-weight: 600; font-size: 14px; }
+    
+    .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+    .product-wrapper { display: flex; gap: 40px; flex-wrap: wrap; }
+    
+    /* Left: Image */
+    .left { flex: 1; min-width: 300px; }
+    .left img { width: 100%; border: 1px solid #f5f5f6; border-radius: 4px; }
+    
+    /* Right: Details */
+    .right { flex: 1; min-width: 300px; }
+    .brand { font-size: 24px; font-weight: 700; color: #282c3f; }
+    .name { font-size: 16px; color: #535766; margin: 5px 0 20px; }
+    .price { font-size: 24px; font-weight: 700; }
+    .tax { font-size: 14px; color: #03a685; margin-bottom: 20px; }
+    
+    .section-title { font-weight: 700; font-size: 14px; margin: 20px 0 10px; letter-spacing: 0.5px; }
+    .sizes { display: flex; gap: 10px; flex-wrap: wrap; }
+    .size-btn { border: 1px solid #d4d5d9; padding: 8px 14px; border-radius: 50px; cursor: pointer; font-size: 14px; background: white; }
+    .size-btn:hover { border: 1px solid #ff3f6c; color: #ff3f6c; }
+    
+    .btn-group { display: flex; gap: 15px; margin-top: 30px; }
+    .btn { padding: 14px 30px; border-radius: 3px; font-weight: 600; font-size: 16px; cursor: pointer; border: none; }
+    .btn-bag { background: #ff3f6c; color: white; flex: 2; }
+    .btn-buy { background: white; color: #282c3f; border: 1px solid #d4d5d9; flex: 1; }
+    .btn-buy:hover { border: 1px solid #282c3f; }
+    
+    .desc { margin-top: 30px; line-height: 1.6; color: #535766; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">VELVETAURA</div>
+    <div>
+      <a href="/">HOME</a>
+      <a href="/products">SHOP</a>
+    </div>
+    <div>
+      <a href="/cart">CART (<%= cart ? cart.length : 0 %>)</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="product-wrapper">
+      
+      <!-- LEFT -->
+      <div class="left">
+        <img src="<%= product.image %>" alt="<%= product.name %>">
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+        <h1 class="brand">VelvetAura</h1>
+        <p class="name"><%= product.name %></p>
+        
+        <p class="price">Rs. <%= product.price %></p>
+        <p class="tax">inclusive of all taxes</p>
+
+        <p class="section-title">SELECT SIZE</p>
+        <div class="sizes">
+          <button class="size-btn">S</button>
+          <button class="size-btn">M</button>
+          <button class="size-btn">L</button>
+        </div>
+
+        <div class="btn-group">
+
+    <form action="/add-to-cart" method="POST" style="flex:2;">
+        <input type="hidden" name="id" value="<%= product._id %>">
+        <input type="hidden" name="name" value="<%= product.name %>">
+        <input type="hidden" name="price" value="<%= product.price %>">
+        <input type="hidden" name="image" value="<%= product.image %>">
+
+        <button type="submit" class="btn btn-bag">
+            ADD TO CART
+        </button>
+    </form>
+
+    <form action="/checkout/<%= product._id %>" method="GET" style="flex:1;">
+        <button type="submit" class="btn btn-buy">
+            BUY NOW
+        </button>
+    </form>
+
+</div>
+
+<p class="section-title">PRODUCT DETAILS</p>
+<p class="desc"><%= product.description %></p>
+      </div>
+
+    </div>
+  </div>
+
+</body> 
+</html>

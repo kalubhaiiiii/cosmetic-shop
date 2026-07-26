@@ -1,35 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart - Cosmetic Shop</title>
-    <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<title>Your Cart - M Store</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<style>
+
+.cart-page{
+    max-width:1100px;
+    margin:50px auto;
+    padding:20px;
+}
+
+.cart-title{
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+
+.cart-wrapper{
+    display:grid;
+    grid-template-columns: 1fr 330px;
+    gap:30px;
+}
+
+
+.cart-card{
+
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    margin-bottom:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+
+}
+
+
+.cart-card img{
+
+    width:130px;
+    height:130px;
+    object-fit:cover;
+    border-radius:15px;
+
+}
+
+
+.product-info{
+    flex:1;
+}
+
+
+.product-info h3{
+
+    font-size:20px;
+    margin-bottom:10px;
+
+}
+
+
+.price{
+
+    font-size:18px;
+    font-weight:600;
+}
+
+
+.qty-box{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-top:15px;
+
+}
+
+
+.qty-btn{
+
+    width:35px;
+    height:35px;
+    border:none;
+    background:#111;
+    color:white;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+
+}
+
+
+
+.remove-btn{
+
+    background:#fff;
+    color:#e63946;
+    border:1px solid #e63946;
+    padding:8px 18px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+
+.remove-btn:hover{
+
+    background:#e63946;
+    color:white;
+
+}
+
+
+
+.price-box{
+
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    height:max-content;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+
+}
+
+
+
+.price-box h2{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.checkout-btn{
+
+    display:block;
+    text-align:center;
+    margin-top:25px;
+
+    background:#111;
+    color:white;
+    padding:15px;
+    border-radius:30px;
+
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+
+.checkout-btn:hover{
+
+    background:#d63384;
+
+}
+
+
+
+@media(max-width:800px){
+
+.cart-wrapper{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+</style>
+
 </head>
+
+
 <body>
 
-    <%- include("partials/navbar") %>
 
-    <section class="cart-section" style="padding: 40px; text-align: center;">
-        <h1>Your Shopping Cart 🛒</h1>
+<%- include("partials/header") %>
 
-        <% if(cart.length === 0) { %>
-            <h2>Cart is empty 😢</h2>
-            <a href="/" class="btn">Continue Shopping</a>
-        <% } else { %>
-            <div class="cart-container">
-                <% cart.forEach(item => { %>
-                    <div class="cart-item" style="border: 1px solid #ddd; padding: 15px; margin: 15px auto; max-width: 400px; border-radius: 8px;">
-                        <img src="<%= item.image %>" alt="<%= item.name %>" style="width: 100px;">
-                        <h3><%= item.name %></h3>
-                        <p>Price: ₹<%= item.price %></p>
-                    </div>
-                <% }) %>
-            </div>
-            <h2>Total Items: <%= cart.length %></h2>
-            <a href="/" class="btn">Continue Shopping</a>
-        <% } %>
-    </section>
+
+
+<div class="cart-page">
+
+
+<h1 class="cart-title">
+Your Shopping Bag 🛍️
+</h1>
+
+
+
+<% if(cart.length === 0){ %>
+
+
+<div class="cart-card">
+
+<h3>Your bag is empty</h3>
+
+</div>
+
+
+<% } else { %>
+
+
+
+<div class="cart-wrapper">
+
+
+
+<div>
+
+
+<% cart.forEach(item=>{ %>
+
+
+<div class="cart-card">
+
+
+<img src="<%= item.image %>">
+
+
+
+<div class="product-info">
+
+
+<h3>
+<%= item.name %>
+</h3>
+
+
+<p class="price">
+Rs. <%= item.price %>
+</p>
+
+
+
+<div class="qty-box">
+
+
+<form action="/cart/update" method="POST">
+
+<input type="hidden" name="id" value="<%= item.id %>">
+
+<input type="hidden" name="action" value="decrease">
+
+<button class="qty-btn">
+-
+</button>
+
+</form>
+
+
+
+<span>
+<%= item.qty %>
+</span>
+
+
+
+<form action="/cart/update" method="POST">
+
+<input type="hidden" name="id" value="<%= item.id %>">
+
+<input type="hidden" name="action" value="increase">
+
+<button class="qty-btn">
++
+</button>
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<h3>
+Rs. <%= Number(item.price)*item.qty %>
+</h3>
+
+
+<form action="/cart/remove" method="POST">
+
+<input type="hidden" name="id" value="<%= item.id %>">
+
+
+<button class="remove-btn">
+
+Remove
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<% }) %>
+
+
+</div>
+
+
+
+
+
+<div class="price-box">
+
+
+<h2>
+Order Summary
+</h2>
+
+
+
+<hr>
+
+
+<p>
+Total Items :
+<%= cart.length %>
+</p>
+
+
+
+<h2>
+
+Rs.
+<%= cart.reduce((sum,item)=>sum+(item.price*item.qty),0) %>
+
+</h2>
+
+
+
+<a href="/checkout/<%= cart[0].id %>" class="checkout-btn">
+
+Proceed To Checkout
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+<% } %>
+
+
+</div>
+
+
+
+
+<%- include("partials/footer") %>
+
+
 
 </body>
 </html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Orders</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+            font-family:Arial,Helvetica,sans-serif;
+        }
+
+        .orders{
+            width:95%;
+            max-width:1200px;
+            margin:40px auto;
+            background:#fff;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,.08);
+        }
+
+        h2{
+            color:#e91e63;
+            margin-bottom:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:center;
+        }
+
+        th{
+            background:#e91e63;
+            color:#fff;
+        }
+
+        img{
+            width:70px;
+            height:70px;
+            object-fit:cover;
+            border-radius:8px;
+        }
+
+        select{
+            padding:8px;
+            border-radius:6px;
+            border:1px solid #ccc;
+            width:170px;
+        }
+
+        button{
+            margin-top:10px;
+            padding:8px 16px;
+            background:#e91e63;
+            color:#fff;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#c2185b;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="orders">
+
+<h2>📦 Customer Orders</h2>
+
+<table>
+
+<tr>
+    <th>Image</th>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Customer</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Status</th>
+</tr>
+
+<% orders.forEach(order => { %>
+
+<tr>
+
+<td>
+    <img src="<%= order.image %>" alt="">
+</td>
+
+<td>
+    <%= order.productName %>
+</td>
+
+<td>
+    ₹<%= order.price %>
+</td>
+
+<td>
+    <%= order.customerName %>
+</td>
+
+<td>
+    <%= order.phone %>
+</td>
+
+<td>
+    <%= order.address %>
+</td>
+
+<td>
+
+<form action="/admin/update-order-status/<%= order._id %>" method="POST">
+
+<select name="status">
+
+<option value="Order Placed"
+<%= order.orderStatus==="Order Placed" ? "selected" : "" %>>
+Order Placed
+</option>
+
+<option value="Packed"
+<%= order.orderStatus==="Packed" ? "selected" : "" %>>
+Packed
+</option>
+
+<option value="Shipped"
+<%= order.orderStatus==="Shipped" ? "selected" : "" %>>
+Shipped
+</option>
+
+<option value="Out for Delivery"
+<%= order.orderStatus==="Out for Delivery" ? "selected" : "" %>>
+Out for Delivery
+</option>
+
+<option value="Delivered"
+<%= order.orderStatus==="Delivered" ? "selected" : "" %>>
+Delivered
+</option>
+
+</select>
+
+<br>
+
+<button type="submit">
+Update
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+</body>
+</html>

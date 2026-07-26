@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="admin-container">
+
+    <h2>Edit Product</h2>
+
+    <form action="/admin/update/<%= product._id %>" method="POST" enctype="multipart/form-data">
+
+        <input
+            type="text"
+            name="name"
+            value="<%= product.name %>"
+            placeholder="Product Name"
+            required
+        >
+
+        <input
+            type="number"
+            name="price"
+            value="<%= product.price %>"
+            placeholder="Price"
+            required
+        >
+
+        <input
+            type="text"
+            name="category"
+            value="<%= product.category %>"
+            placeholder="Category"
+            required
+        >
+
+        <p>Current Image</p>
+
+        <img src="<%= product.image %>" width="120">
+
+        <br><br>
+
+        <input
+        type="file"
+        name="image"
+        accept="image/*"
+    >
+
+
+        <textarea
+            name="description"
+            rows="4"
+            placeholder="Description"
+        ><%= product.description %></textarea>
+
+        <label>
+            <input
+                type="checkbox"
+                name="featured"
+                <%= product.featured ? "checked" : "" %>>
+            Featured Product
+        </label>
+
+        <br><br>
+
+        <button type="submit">
+            Update Product
+        </button>
+
+        <a href="/admin/dashboard" class="btn">
+            Back
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -10,58 +10,170 @@
 
     <%- include("partials/navbar") %>
 
+    <div class="top-strip">
+
+<div>🚚 Free Shipping on Orders Above ₹999</div>
+
+<div>
+✨ New Collection is Live | COD Available | Easy Returns
+</div>
+
+</div>
+
     <!-- Hero Banner Section -->
     <section class="hero">
+
+    <div class="hero-overlay">
+
         <div class="hero-content">
-            <h1>Welcome to VelvetAura</h1>
-            <p>Elegance in Every Detail</p>
-            <a href="#products" class="btn">Shop Now</a>
+
+            <span class="hero-tag">
+                ✨ NEW ARRIVALS 2026
+            </span>
+
+            <h1>
+                Discover Your <br>
+                Beauty & Elegance
+            </h1>
+
+            <p>
+                Premium Cosmetics, Bangles & Beauty Essentials
+                crafted for your everyday glow.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/products" class="shop-btn">
+                    Shop Now →
+                </a>
+
+                <a href="/products?category=Cosmetics" class="outline-btn">
+                    Explore Collection
+                </a>
+
+            </div>
+
         </div>
-    </section>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h2>Shop by Category</h2>
-            <div class="category-container">
+    </div>
 
-                <!-- Bangles Card - Clickable banaya -->
-                <a href="/products?category=Bangles" class="card">
-                    <img src="/images/bangles.jpg" alt="Bangles">
-                    <h3>Bangles</h3>
-                </a>
+</section>
 
-                <!-- Cosmetics Card - Clickable banaya -->
-                <a href="/products?category=Cosmetics" class="card">
-                    <img src="/images/cosmetic.jpg" alt="Cosmetics">
-                    <h3>Cosmetics</h3>
-                </a>
-                <!-- Perfume Card - Naya add kiya -->
-<a href="/products?category=Perfume" class="card">
-    <img src="/images/perfume.jpg" alt="Perfume">
-    <h3>Perfume</h3>
+<section class="category-section">
+
+<h2 class="section-title">
+Shop By Category
+</h2>
+
+<div class="category-grid">
+
+<a href="/products?category=Cosmetics" class="category-card">
+
+<img src="/images/cosmetics.jpg" alt="Cosmetics">
+
+<div class="category-overlay">
+
+<h3>Cosmetics</h3>
+
+<p>Explore →</p>
+
+</div>
+
 </a>
 
-            </div>
-        </div>
-    </section>
+<a href="/products?category=Bangles" class="category-card">
+
+<img src="/images/bangles.jpg" alt="Bangles">
+
+<div class="category-overlay">
+
+<h3>Bangles</h3>
+
+<p>Explore →</p>
+
+</div>
+
+</a>
+
+<a href="/products?category=Perfume" class="category-card">
+
+    <img src="/images/perfume.jpg" alt="Perfume">
+
+    <div class="category-overlay">
+
+        <h3>Perfume</h3>
+
+        <p>Explore →</p>
+
+    </div>
+
+</a>
+
+</div>
+
+</section>
 
     <!-- Featured Products Section -->
-    <section class="featured" id="products">
-        <div class="container">
-            <h2>Featured Products</h2>
-            <div class="product-grid">
-                <% products.forEach(product => { %>
-                    <div class="product-card">
-                        <img src="<%= product.image %>" alt="<%= product.name %>">
-                        <h3><%= product.name %></h3>
-                        <p>₹<%= product.price %></p>
-                        <button class="btn">Shop Now</button>
-                    </div>
-                <% }) %>
-            </div>
+    <section class="featured-section">
+
+<h2 class="section-title">
+Featured Products
+</h2>
+
+<div class="product-grid">
+
+<% products.forEach(product => { %>
+
+<div class="product-card">
+
+    <div class="product-image">
+
+        <span class="badge">New</span>
+
+        <img src="<%= product.image %>" alt="<%= product.name %>">
+
+    </div>
+
+    <div class="product-info">
+
+        <h3><%= product.name %></h3>
+
+        <p class="price">₹<%= product.price %></p>
+
+        <div class="rating">
+            ⭐⭐⭐⭐⭐
         </div>
-    </section>
+
+        <div class="buttons">
+
+            <a href="/product/<%= product._id %>" class="view-btn">
+                View
+            </a>
+
+            <form action="/add-to-cart" method="POST">
+
+                <input type="hidden" name="id" value="<%= product._id %>">
+                <input type="hidden" name="name" value="<%= product.name %>">
+                <input type="hidden" name="price" value="<%= product.price %>">
+                <input type="hidden" name="image" value="<%= product.image %>">
+
+                <button type="submit" class="cart-btn">
+                    Add to Cart
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</section>
 
     <!-- About Section -->
     <section class="about">

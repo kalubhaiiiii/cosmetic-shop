@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .dashboard{
+            width:90%;
+            margin:40px auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:center;
+        }
+
+        th{
+            background:#e91e63;
+            color:white;
+        }
+
+        img{
+            width:80px;
+            border-radius:8px;
+        }
+
+        .add-btn{
+            display:inline-block;
+            margin-bottom:20px;
+            padding:12px 25px;
+            background:#e91e63;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+        }
+    </style>
+
+</head>
+<body>
+
+<%- include("partials/navbar") %>
+
+<div class="dashboard">
+<div class="dashboard-header">
+
+    <div>
+        <h2>🛠 Admin Dashboard</h2>
+
+        <a href="/admin/add-product" class="add-btn">
+            + Add Product
+        </a>
+
+        <a href="/admin/orders" class="add-btn">
+            📦 View Orders
+        </a>
+    </div>
+
+    <a href="/admin/logout" class="logout-btn">
+        🚪 Logout
+    </a>
+
+</div>
+
+<table>
+
+<tr>
+<th>Image</th>
+<th>Name</th>
+<th>Price</th>
+<th>Category</th>
+<th>Action</th>
+</tr>
+
+<% products.forEach(product=>{ %>
+
+<tr>
+
+<td>
+<img src="<%= product.image %>">
+</td>
+
+<td>
+<%= product.name %>
+</td>
+
+<td>
+₹<%= product.price %>
+</td>
+
+<td>
+<%= product.category %>
+</td>
+
+<td>
+    
+<a href="/admin/edit/<%= product._id %>" class="edit-btn">
+    Edit
+</a>
+
+<form action="/admin/delete/<%= product._id %>" method="POST" style="display:inline;">
+    <button type="submit" onclick="return confirm('Delete this product?')">
+        Delete
+    </button>
+</form>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+</body>
+</html>

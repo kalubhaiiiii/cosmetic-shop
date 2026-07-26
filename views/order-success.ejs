@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Successful | VelvetAura</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f6f6f8;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+
+width:90%;
+max-width:650px;
+background:#fff;
+padding:45px;
+border-radius:20px;
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+text-align:center;
+
+}
+
+.success{
+
+width:110px;
+height:110px;
+background:#e8fff0;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:55px;
+margin:auto;
+color:#28a745;
+margin-bottom:25px;
+
+}
+
+h1{
+
+color:#222;
+margin-bottom:10px;
+
+}
+
+p{
+
+color:#666;
+margin-bottom:15px;
+
+}
+
+.order-box{
+
+background:#fafafa;
+padding:20px;
+border-radius:12px;
+margin:25px 0;
+text-align:left;
+
+}
+
+.order-box p{
+
+margin:10px 0;
+font-size:15px;
+
+}
+
+.btn{
+
+display:inline-block;
+padding:14px 28px;
+margin:10px;
+text-decoration:none;
+border-radius:8px;
+font-weight:600;
+transition:.3s;
+
+}
+
+.shop{
+
+background:#e91e63;
+color:#fff;
+
+}
+
+.orders{
+
+background:#333;
+color:#fff;
+
+}
+
+.btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="success">
+✔
+</div>
+
+<h1>Order Placed Successfully!</h1>
+
+<p>
+Thank you for shopping with
+<b>VelvetAura</b>.
+</p>
+
+<div class="order-box">
+
+<p><b>Order ID:</b> <%= order._id %></p>
+
+<p><b>Payment:</b> <%= order.paymentMethod %></p>
+
+<p><b>Status:</b> <%= order.orderStatus %></p>
+
+<p><b>Estimated Delivery:</b> 3-5 Business Days</p>
+
+</div>
+
+<a href="/" class="btn shop">
+Continue Shopping
+</a>
+
+<a href="/my-orders" class="btn orders">
+My Orders
+</a>
+
+</div>
+
+</body>
+</html>
